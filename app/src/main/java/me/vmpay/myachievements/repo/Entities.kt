@@ -64,3 +64,13 @@ data class UserAchievements(
     @Relation(parentColumn = "email", entityColumn = "owner")
     val achievementList: List<Achievement>
 )
+
+data class UserMinimal(
+    @PrimaryKey
+    @ColumnInfo(name = "email")
+    val email: String,
+    @ColumnInfo(name = "display_name")
+    val displayName: String,
+    @ColumnInfo(name = "photo_url")
+    val photoUrl: String
+)

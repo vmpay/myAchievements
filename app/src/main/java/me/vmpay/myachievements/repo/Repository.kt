@@ -1,6 +1,10 @@
 package me.vmpay.myachievements.repo
 
-import kotlinx.coroutines.*
+import androidx.lifecycle.LiveData
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class Repository private constructor(private val userDao: UserDao, private val achievementDao: AchievementDao) {
 
@@ -28,31 +32,23 @@ class Repository private constructor(private val userDao: UserDao, private val a
         return GlobalScope.launch(Dispatchers.IO) { userDao.delete(user) }
     }
 
-    suspend fun getUserByEmail(email: String): User? {
-        return GlobalScope.async {
-            userDao.getByEmail(email)
-        }.await()
+    fun getUserByEmail(email: String): LiveData<User> {
+        return userDao.getByEmail(email)
     }
 
-    suspend fun getUsersAchievement(): List<UserAchievements> {
-        return GlobalScope.async {
-            userDao.getUsersAchievement()
-        }.await()
+    fun getUsersAchievement(): LiveData<List<UserAchievements>> {
+        return userDao.getUsersAchievement()
     }
 
-    suspend fun getUsersAchievement(email: String): List<UserAchievements> {
-        return GlobalScope.async {
-            userDao.getUsersAchievement(email)
-        }.await()
+    fun getUsersAchievement(email: String): LiveData<List<UserAchievements>> {
+        return userDao.getUsersAchievement(email)
     }
 
     fun insertAchievement(achievement: Achievement): Job {
         return GlobalScope.launch(Dispatchers.IO) { achievementDao.insert(achievement) }
     }
 
-    suspend fun getAchievementByEmail(email: String): List<Achievement> {
-        return GlobalScope.async {
-            achievementDao.getByEmail(email)
-        }.await()
+    fun getAchievementByEmail(email: String): LiveData<List<Achievement>> {
+        return achievementDao.getByEmail(email)
     }
 }
