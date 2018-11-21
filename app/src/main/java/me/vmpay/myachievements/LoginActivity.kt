@@ -2,10 +2,10 @@ package me.vmpay.myachievements
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import kotlinx.android.synthetic.main.activity_login.*
 import me.vmpay.myachievements.repo.*
 
 class LoginActivity : AppCompatActivity() {
@@ -37,8 +37,8 @@ class LoginActivity : AppCompatActivity() {
             "t.johns2@yahoo.com", "Tommy Lee Johns", "https://avatars2.githubusercontent.com/u/4482555?s=400&v=4",
             1540376651, 1540376651, UserAddress("Poland", "Warsaw", "00-150", "Nowolipki", "37", "12")
         )
-        findViewById<Button>(R.id.btn_insert).setOnClickListener { repo?.insertUser(user) }
-        findViewById<Button>(R.id.btn_update).setOnClickListener { repo?.updateUser(updatedUser) }
-        findViewById<Button>(R.id.btn_delete).setOnClickListener { repo?.deleteUser(user) }
+        btn_insert.setOnClickListener { repo?.insertUser(user) }
+        btn_update.setOnClickListener { repo?.updateUser(updatedUser) }
+        btn_delete.setOnClickListener { repo?.deleteUser(user) }
     }
 }

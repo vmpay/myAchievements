@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
+import me.vmpay.myachievements.getDistinct
 
 @Dao
 abstract class AchievementDao : BaseDao<Achievement> {
@@ -21,11 +22,14 @@ abstract class UserDao : BaseDao<User> {
 
     @Transaction
     @Query("SELECT * FROM users")
-    abstract fun getUsersAchievement(): LiveData<List<UserAchievements>>
+    protected abstract fun getUsersAchievement(): LiveData<List<UserAchievements>>
 
     @Transaction
     @Query("SELECT * FROM users WHERE email = :email ")
     abstract fun getUsersAchievement(email: String): LiveData<List<UserAchievements>>
+
+    fun getDistinctUsersAchievement(): LiveData<List<UserAchievements>> =
+        getUsersAchievement().getDistinct()
 
     @Transaction
     open fun updateUsers(users: List<User>) {

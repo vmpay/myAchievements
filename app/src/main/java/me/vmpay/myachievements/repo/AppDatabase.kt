@@ -39,9 +39,10 @@ abstract class AppDatabase : RoomDatabase() {
                         super.onCreate(db)
                         // moving to a new thread
                         GlobalScope.launch(Dispatchers.IO) {
-                            val instance = getInstance(context)
-                            instance.userDao().insertAll(PREPOPULATE_USERS_DATA)
-                            instance.achievementDao().insertAll(PREPOPULATE_ACHIEVEMENTS_DATA)
+                            getInstance(context).apply {
+                                userDao().insertAll(PREPOPULATE_USERS_DATA)
+                                achievementDao().insertAll(PREPOPULATE_ACHIEVEMENTS_DATA)
+                            }
                         }
                     }
                 })

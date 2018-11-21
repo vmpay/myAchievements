@@ -37,7 +37,7 @@ class Repository private constructor(private val userDao: UserDao, private val a
     }
 
     fun getUsersAchievement(): LiveData<List<UserAchievements>> {
-        return userDao.getUsersAchievement()
+        return userDao.getDistinctUsersAchievement()
     }
 
     fun getUsersAchievement(email: String): LiveData<List<UserAchievements>> {
